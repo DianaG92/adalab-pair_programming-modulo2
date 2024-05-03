@@ -1,7 +1,11 @@
 -- Pair Programming lección 07 Queries básicas
 -- 1. Descarga la base de datos Northwind.
 -- 2. Crea el schema con nombre northwind en MySQL Workbench para importar la base de datos:
+<<<<<<< HEAD
 -- CREATE SCHEMA northwind; no lo tenemos que crear porque se creó con el script del ejercicio (en el que venía la base de datos)
+=======
+-- CREATE SCHEMA northwind; (no lo creamos porque ya existe en nuestra base de datos).
+>>>>>>> abf4d8bf752d6d905c030160cb962bc0cccc1089
 USE northwind;
 
 -- 4. Conociendo a las empleadas:
@@ -83,8 +87,13 @@ en cuanto al coste económico total ImporteTotal.*/
 SELECT unit_price*quantity AS importe_total, order_id
 FROM order_details
 ORDER BY importe_total DESC
+<<<<<<< HEAD
 LIMIT 10
 OFFSET 5;
+=======
+LIMIT 5
+OFFSET 10;
+>>>>>>> abf4d8bf752d6d905c030160cb962bc0cccc1089
 
 -- 15. Qué categorías tenemos en nuestra BBDD:
 /* De cara a ver cómo de diversificado está el negocio, se nos solicita una lista de las categorías
@@ -115,11 +124,8 @@ WHERE list_price BETWEEN 15 AND 50;
 
 -- 18. Selecciona los productos con unos precios dados:
 /* Queremos conocer los datos de los productos que tengan exactamente un precio de 18, 19 o 20 dólares
-(un rango muy concreto de precios del que la empresa quiere maximizar sus ventas en un futuro).
+(un rango muy concreto de precios del products que la empresa quiere maximizar sus ventas en un futuro).
 Usa IN para conseguirlo de manera eficiente.*/
-SELECT product_id, product_name, unit_price
+SELECT id, product_name, list_price
 FROM products
-WHERE unit_price IN (18, 19, 20);
-
-
-
+WHERE list_price IN (18, 19, 20);
