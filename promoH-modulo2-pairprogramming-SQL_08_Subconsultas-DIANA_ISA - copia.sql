@@ -1,6 +1,31 @@
+USE northwind_2024_2; -- Diana northwind-2
+
 /* 1. Extraed los pedidos con el máximo "order_date" para cada empleado.
 Nuestro jefe quiere saber la fecha de los pedidos más recientes que ha gestionado cada empleado. 
 Para eso nos pide que lo hagamos con una query correlacionada. */
+SELECT order_id AS OrderID, customer_id AS CustomerID, employee_id AS EmployeeID, order_date AS OrderDate, required_date AS RequiredDate
+FROM orders
+GROUP BY order_id
+HAVING MAX(order_date);
+
+SELECT order_id AS OrderID, customer_id AS CustomerID, employee_id AS EmployeeID, order_date AS OrderDate, required_date AS RequiredDate
+FROM orders
+WHERE order_id DATE(1998-05-05);
+
+SELECT order_id AS OrderID, customer_id AS CustomerID, employee_id AS EmployeeID, order_date AS OrderDate, required_date AS RequiredDate
+FROM orders
+	(SELECT employee_id
+	FROM employees
+    WHERE orders.employee_id = employees.employee_id);
+
+
+SELECT MAX(order_date)
+FROM employees;
+
+
+employee_number
+customer_number
+sales_rep_employee_number
 
 /* 2. Extraed el precio unitario máximo (unit_price) de cada producto vendido.
 Supongamos que ahora nuestro jefe quiere un informe de los productos vendidos y su precio unitario. 
