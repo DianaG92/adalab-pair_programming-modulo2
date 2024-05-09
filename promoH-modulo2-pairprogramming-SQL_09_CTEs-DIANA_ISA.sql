@@ -45,7 +45,7 @@ Necesitaréis extraer la suma de las cantidades por cada producto y calcular la 
 WITH cantidad_productos AS
 	(SELECT product_id, SUM(quantity) AS cantidad_total
 	FROM order_details
-    GROUP BY product_id)
+	GROUP BY product_id)
 SELECT products.product_id, products.product_name, AVG(cantidad_total) AS media
 FROM cantidad_productos
 INNER JOIN products
