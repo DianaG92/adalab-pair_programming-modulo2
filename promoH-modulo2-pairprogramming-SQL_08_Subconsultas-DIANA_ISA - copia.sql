@@ -1,5 +1,3 @@
-USE northwind_2024_2; -- Diana northwind-2
-
 /* 1. Extraed los pedidos con el máximo "order_date" para cada empleado.
 Nuestro jefe quiere saber la fecha de los pedidos más recientes que ha gestionado cada empleado. 
 Para eso nos pide que lo hagamos con una query correlacionada. */
@@ -75,6 +73,3 @@ HAVING Cantidad =
 		(SELECT product_id, SUM(quantity) AS Cantidad
         FROM order_details
         GROUP BY product_id) AS t); -- sin este alias (AS t) no funciona el código
-
-
-

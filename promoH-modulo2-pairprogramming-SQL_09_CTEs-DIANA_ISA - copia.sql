@@ -1,20 +1,60 @@
 /* 1. Extraer en una CTE todos los nombres de las compañias y los id de los clientes.
 Para empezar nos han mandado hacer una CTE muy sencilla el id del cliente y el nombre de la compañia de la tabla Customers. */
+WITH datos_clientes AS
+	(SELECT customer_id, company_name
+    FROM customers)
+SELECT customer_id, company_name
+FROM datos_clientes;
 
 /* 2. Selecciona solo los de que vengan de "Germany".
 Ampliemos un poco la query anterior. 
 En este caso, queremos un resultado similar al anterior, pero solo queremos los que pertezcan a "Germany". */
+WITH datos_clientes AS
+	(SELECT customer_id, company_name
+    FROM customers
+    WHERE country = "Germany")
+SELECT customer_id, company_name
+FROM datos_clientes;
 
 /* 3. Extraed el id de las facturas y su fecha de cada cliente.
 En este caso queremos extraer todas las facturas que se han emitido a un cliente, su fecha la compañia a la que pertenece.
 📌 NOTA En este caso tendremos columnas con elementos repetidos(CustomerID, y Company Name). */
+WITH facturas AS
+	(SELECT customers.customer_id, customers.company_name, orders.order_id, orders.order_date
+	FROM customers
+	INNER JOIN orders
+	ON customers.customer_id = orders.customer_id)
+SELECT *
+FROM facturas;
 
 /* 4. Contad el número de facturas por cliente
 Mejoremos la query anterior. 
 En este caso queremos saber el número de facturas emitidas por cada cliente. */
+WITH facturas AS
+	(SELECT customer_id, company_name
+	FROM customers)
+SELECT facturas.customer_id, facturas.company_name, COUNT(orders.order_id) AS numero_facturas
+FROM orders
+INNER JOIN facturas
+ON facturas.customer_id = orders.customer_id
+GROUP BY orders.customer_id;
+-- El GROUP BY nos da el mismo resultado ya sea agrupándolo desde facturas.customer_id o desde orders.customer_id.
 
 /* 5. Cuál la cantidad media pedida de todos los productos ProductID.
 Necesitaréis extraer la suma de las cantidades por cada producto y calcular la media. */
+WITH cantidad_productos AS
+	(SELECT product_id, SUM(quantity) AS cantidad_total
+	FROM order_details
+    GROUP BY product_id)
+SELECT AVG(cantidad_total) AS media
+FROM cantidad_productos;
+
+
+SELECT product_id, SUM(quantity) AS cantidad_total
+FROM 
+	(SELECT AVG(cantidad_total) AS media
+	FROM order_details) 
+AS o;
 
 -- BONUS: Estos ejercicios no es obligatorio realizarlos. 
 -- Los podéis hacer más adelante para poder practicar las CTE´s.
