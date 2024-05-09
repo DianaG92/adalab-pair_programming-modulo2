@@ -46,15 +46,11 @@ WITH cantidad_productos AS
 	(SELECT product_id, SUM(quantity) AS cantidad_total
 	FROM order_details
     GROUP BY product_id)
-SELECT AVG(cantidad_total) AS media
-FROM cantidad_productos;
-
-
-SELECT product_id, SUM(quantity) AS cantidad_total
-FROM 
-	(SELECT AVG(cantidad_total) AS media
-	FROM order_details) 
-AS o;
+SELECT products.product_id, products.product_name, AVG(cantidad_total) AS media
+FROM cantidad_productos
+INNER JOIN products
+ON cantidad_productos.product_id = products.product_id
+GROUP BY product_id, product_name;
 
 -- BONUS: Estos ejercicios no es obligatorio realizarlos. 
 -- Los podéis hacer más adelante para poder practicar las CTE´s.
